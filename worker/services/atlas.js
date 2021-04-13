@@ -1,4 +1,3 @@
-const { setNonEnumerableProperties } = require('got/dist/source');
 const { MongoClient } = require('mongodb');
 
 class AtlasService {
