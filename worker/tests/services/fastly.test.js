@@ -2,7 +2,7 @@
  *                  Fastly test                       *
  ******************************************************************* */
 
-const Fastly = require('../../services/fastly').Fastly;
+import FastlyService from '../../services/fastly'
 const environment = require('../../utils/environment').EnvironmentClass;
 
 const payloadObj = {
@@ -40,7 +40,7 @@ describe('Fastly Tests', () => {
     let fastly;
 
     beforeAll(() => {
-        fastly = new Fastly(environment.getFastlyServiceId(),environment.getFastlyToken(), console);
+        fastly = new FastlyService(environment.getFastlyServiceId(),environment.getFastlyToken(), console);
     });
 
     afterAll(() => { });

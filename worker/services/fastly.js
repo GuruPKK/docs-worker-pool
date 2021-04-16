@@ -1,14 +1,8 @@
 const { head } = require('got');
 const got = require('got');
 class FastlyService {
-  // pass in a job payload to setup class
-  constructor(fastlyServiceId, fastlyToken, logger) {
+  constructor(fastlyServiceId, fastlyToken) {
     this.fastlyServiceId = fastlyServiceId;
-    this.logger = logger;
-    if (!logger) {
-      console.log('Invalid logger passed in')
-      this.logger = console
-    }
     this.header = {
       'fastly-key': fastlyToken,
       'accept': 'application/json'
@@ -36,7 +30,6 @@ class FastlyService {
           'status': 'failure',
           'message': `service with url ${url} does not exist in fastly`
         });
-        this.logger.log(`Error: ${error.response.body} for URL ${url}`)
       }
       return purgeMessages;
     }, []);
@@ -65,5 +58,5 @@ class FastlyService {
 }
 
 module.exports = {
-  Fastly: FastlyService
-};
+  FastlyService
+}

@@ -1,0 +1,19 @@
+{
+    "stage": "STAGE",
+    "githubUserName": "GITHUB_BOT_USERNAME",
+    "githubPassword": "GITHUB_BOT_PASSWORD",
+    "awsAccessKey":  "AWS_ACCESS_KEY_ID",
+    "awsAccessSecret": "AWS_SECRET_ACCESS_KEY",
+    "ATLAS": {
+        "DBNAME": "DB_NAME",
+        "COLLECTION_NAME": "COL_NAME",
+        "USER_NAME": "MONGO_ATLAS_USERNAME",
+        "PASS_WORD": "MONGO_ATLAS_PASSWORD",
+        "CLUSTER": "ATLAS_CLUSTER_NAME"
+    },
+    "FASTLY": {
+        "dochubMap": "FASTLY_DOCHUB_MAP",
+        "token": "FASTLY_TOKEN",
+        "serviceId": "FASTLY_SERVICE_ID"
+    }
+}

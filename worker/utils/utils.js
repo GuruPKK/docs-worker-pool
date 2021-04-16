@@ -44,7 +44,7 @@ module.exports = {
   },
 
   writeToFile(fileName, text) {
-    fs.outputFile(fileName, text, function(err) {
+    fs.outputFile(fileName, text, function (err) {
       console.log(err); //null
     });
   },
@@ -56,7 +56,7 @@ module.exports = {
   },
 
   async validateJob(digest, salt, string1, string2) {
-    this.encryptJob(salt, string1, string2).then(function(value) {
+    this.encryptJob(salt, string1, string2).then(function (value) {
       const bufferDigest2 = Buffer.from(value, 'utf8');
       const bufferDigest1 = Buffer.from(digest, 'utf8');
       crypto.timingSafeEqual(bufferDigest1, bufferDigest2);
@@ -70,7 +70,7 @@ module.exports = {
     return process.env.crypto_secret;
   },
   printFile(fileName) {
-    fs.readFile(fileName, function(err, data) {
+    fs.readFile(fileName, function (err, data) {
       /* If an error exists, show it, otherwise show the file */
       err ? Function('error', 'throw error')(err) : console.log(data);
     });
@@ -149,12 +149,12 @@ module.exports = {
   },
 
   //either xlarge workerpool or regular
-  async getServerUser(){
+  async getServerUser() {
     try {
       const {
         stdout,
         stderr
-      } = await exec(`whoami`); 
+      } = await exec(`whoami`);
       return stdout.trim()
     } catch (error) {
       console.log('Error running shell command whoami', error)
@@ -179,8 +179,8 @@ module.exports = {
     }
     return returnObject;
   },
-  
-  async getSnootyProjectName(repoDirName){
+
+  async getSnootyProjectName(repoDirName) {
     try {
       const commands = [
         `. /venv/bin/activate`,
@@ -205,8 +205,8 @@ module.exports = {
   async getRepoPublishedBranches(repoObject) {
     const pubBranchesFile = `https://raw.githubusercontent.com/mongodb/docs-worker-pool/meta/publishedbranches/${repoObject.repoName}.yaml`;
     const returnObject = {};
-    return new Promise(function(resolve, reject) {
-      request(pubBranchesFile, function(error, response, body) {
+    return new Promise(function (resolve, reject) {
+      request(pubBranchesFile, function (error, response, body) {
         if (!error && body && response.statusCode === 200) {
           try {
             const yamlParsed = yaml.safeLoad(body);
@@ -224,5 +224,5 @@ module.exports = {
         resolve(returnObject);
       });
     });
-  }
+  },
 };

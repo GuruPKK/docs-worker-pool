@@ -18,6 +18,8 @@ docker run \
 	--env FASTLY_TOKEN \
 	--env FASTLY_DOCHUB_MAP \
 	--env FASTLY_SERVICE_ID \
+	--env ATLAS_CLUSTER_NAME \
+	--env COL_NAME \
 	workerpool
 ```
 * `MONGO_ATLAS_USERNAME` and `MONGO_ATLAS_PASSWORD` is username/password of atlas database

@@ -1,8 +1,7 @@
 /** ******************************************************************
  *                  Github test                       *
  ******************************************************************* */
-
-const GithubService = require('../../services/github').Github
+import GithubService from '../../services/github';
 const fs = require('fs');
 describe('GitHub Tests', () => {
 

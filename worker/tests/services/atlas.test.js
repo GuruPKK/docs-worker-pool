@@ -1,5 +1,5 @@
 const { MongoClient } = require('mongodb');
-const atlasService = require('../../services/atlas').Atlas;
+import AtlasService from '../../services/atlas'
 const env = require('../../utils/environment');
 
 const runXlarge = env.EnvironmentClass.getXlarge();
@@ -57,7 +57,7 @@ describe('Atlas Tests', () => {
     });
     db = await connection.db(global.__MONGO_DB_NAME__);
 
-    atlas = new atlasService(global.__MONGO_URI__, console)
+    atlas = new AtlasService(global.__MONGO_URI__, console)
     // Remove the jobs collection (should be empty anyways)
     db.dropCollection('jobs').catch(err => {
       console.log(err);
@@ -81,71 +81,71 @@ describe('Atlas Tests', () => {
     await db.close();
   });
 
-//   it('setup worked properly', async () => {
-//     const jobsColl = db.collection('jobs');
+  it('setup worked properly', async () => {
+    const jobsColl = db.collection('jobs');
 
-//     // There should be 4 documents in the collection
-//     const numJobs = await jobsColl.count();
-//     expect(numJobs).toEqual(4);
+    // There should be 4 documents in the collection
+    const numJobs = await jobsColl.count();
+    expect(numJobs).toEqual(4);
 
-//     // Following properties should be found in all of them
-//     const currJob = await jobsColl.findOne({});
-//     expect(currJob).toHaveProperty('payload');
-//     expect(currJob).toHaveProperty('createdTime');
-//     expect(currJob).toHaveProperty('startTime', null);
-//     expect(currJob).toHaveProperty('endTime', null);
-//     expect(currJob).toHaveProperty('priority');
-//     expect(currJob).toHaveProperty('numFailures', 0);
-//     expect(currJob).toHaveProperty('failures', []);
-//     expect(currJob).toHaveProperty('result', null);
-//   });
+    // Following properties should be found in all of them
+    const currJob = await jobsColl.findOne({});
+    expect(currJob).toHaveProperty('payload');
+    expect(currJob).toHaveProperty('createdTime');
+    expect(currJob).toHaveProperty('startTime', null);
+    expect(currJob).toHaveProperty('endTime', null);
+    expect(currJob).toHaveProperty('priority');
+    expect(currJob).toHaveProperty('numFailures', 0);
+    expect(currJob).toHaveProperty('failures', []);
+    expect(currJob).toHaveProperty('result', null);
+  });
 
   /** ******************************************************************
    *                             getCollection()                         *
    ******************************************************************* */
 
-//   it('getCollection with right collection and db name works properly', () => {
-//     //   GIVEN
-//     let dbName = global.__MONGO_DB_NAME__
-//     let collectionName = 'jobs'
+  it('getCollection with right collection and db name works properly', () => {
+    //   GIVEN
+    let dbName = global.__MONGO_DB_NAME__
+    let collectionName = 'jobs'
 
-//     //  WHEN
-//     const collection = atlas.getCollection(dbName, collectionName);
+    //  WHEN
+    const collection = atlas.getCollection(dbName, collectionName);
 
-//     // THEN
-//     console.log(collection)
-//     expect(collection).toBeDefined();
-//   });
+    // THEN
+    console.log(collection)
+    expect(collection).toBeDefined();
+  });
 
   /** ******************************************************************
    *                             findOneAndUpdate()                         *
    ******************************************************************* */
-//   it('findOneAndUpdate should get the correct record according to the query', async () => {
+  it('findOneAndUpdate should get the correct record according to the query', async () => {
 
-//     // GIVEN
-//     let dbName = global.__MONGO_DB_NAME__
-//     let collectionName = 'jobs'
-//     const query = {
-//         status: 'inQueue',
-//         'payload.isXlarge': runXlarge,
-//         createdTime: { $lte: new Date() },
-//       }
-//     const update = { $set: { startTime: new Date(), status: 'inProgress' } };
-//     const options = { sort: { priority: -1, createdTime: 1 }, returnNewDocument: true };
+    // GIVEN
+    let dbName = global.__MONGO_DB_NAME__
+    let collectionName = 'jobs'
+    const query = {
+        status: 'inQueue',
+        'payload.isXlarge': runXlarge,
+        createdTime: { $lte: new Date() },
+      }
+    const update = { $set: { startTime: new Date(), status: 'inProgress' } };
+    const options = { sort: { priority: -1, createdTime: 1 }, returnNewDocument: true };
 
-//     // WHEN 
-//     let item = await atlas.findOneAndUpdate(dbName, collectionName, query, update, options);
+    // WHEN 
+    let item = await atlas.findOneAndUpdate(dbName, collectionName, query, update, options);
 
-//     // THEN
-//     console.log(item)
-//     expect(item).toBeDefined();
-//     expect(item).toHaveProperty('ok', 1);
-//     expect(item).toHaveProperty('value');
-//     expect(item.value).toHaveProperty('payload', {
-//       jobType: 'job1',
-//       isXlarge: runXlarge
-//     });
-//   }, 5000);
+    // THEN
+    console.log(item)
+    expect(item).toBeDefined();
+    expect(item).toHaveProperty('ok', 1);
+    expect(item).toHaveProperty('value');
+    expect(item.value).toHaveProperty('payload', {
+      jobType: 'job1',
+      isXlarge: runXlarge
+    });
+  }, 5000);
   /** ******************************************************************
    *                       Updateone                      *
    ******************************************************************* */
